@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: cozy
+      POSTGRES_PASSWORD: cozy1234
+      POSTGRES_DB: cozy-announcements
+    volumes:
+      - ./.tmp/data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432

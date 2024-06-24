@@ -4,10 +4,11 @@
   "info": {
     "singularName": "announcement",
     "pluralName": "announcements",
-    "displayName": "Announcement"
+    "displayName": "Announcement",
+    "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
@@ -19,20 +20,54 @@
       "type": "richtext",
       "required": true
     },
-    "featured_image": {
-      "allowedTypes": [
-        "images"
-      ],
-      "type": "media",
-      "multiple": false,
-      "required": true
-    },
     "priority": {
       "default": 0,
       "required": true,
-      "max": 3,
+      "max": 1000,
       "unique": false,
-      "type": "integer"
+      "type": "integer",
+      "min": 0
+    },
+    "start_at": {
+      "type": "datetime",
+      "required": true
+    },
+    "end_at": {
+      "type": "datetime",
+      "required": false
+    },
+    "channel": {
+      "type": "string"
+    },
+    "primary_image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "secondary_image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "language": {
+      "type": "enumeration",
+      "enum": [
+        "en",
+        "fr"
+      ],
+      "required": true,
+      "default": "en"
+    },
+    "main_action": {
+      "type": "component",
+      "repeatable": false,
+      "component": "button.link-button"
     }
   }
 }

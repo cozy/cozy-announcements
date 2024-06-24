@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_button_link_buttons",
+  "info": {
+    "displayName": "LinkButton",
+    "icon": "exit"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "link": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

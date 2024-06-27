@@ -362,56 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiAnnouncementAnnouncement extends Schema.CollectionType {
-  collectionName: 'announcements';
-  info: {
-    singularName: 'announcement';
-    pluralName: 'announcements';
-    displayName: 'Announcement';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    title: Attribute.String & Attribute.Required;
-    content: Attribute.RichText & Attribute.Required;
-    priority: Attribute.Integer &
-      Attribute.Required &
-      Attribute.SetMinMax<
-        {
-          min: 0;
-          max: 1000;
-        },
-        number
-      > &
-      Attribute.DefaultTo<0>;
-    start_at: Attribute.DateTime & Attribute.Required;
-    end_at: Attribute.DateTime;
-    channel: Attribute.String;
-    primary_image: Attribute.Media<'images'> & Attribute.Required;
-    secondary_image: Attribute.Media<'images'>;
-    language: Attribute.Enumeration<['en', 'fr']> &
-      Attribute.Required &
-      Attribute.DefaultTo<'en'>;
-    main_action: Attribute.Component<'button.link-button'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::announcement.announcement',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::announcement.announcement',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -838,6 +788,95 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiAnnouncementAnnouncement extends Schema.CollectionType {
+  collectionName: 'announcements';
+  info: {
+    singularName: 'announcement';
+    pluralName: 'announcements';
+    displayName: 'Announcement';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required;
+    content: Attribute.RichText & Attribute.Required;
+    priority: Attribute.Integer &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+          max: 1000;
+        },
+        number
+      > &
+      Attribute.DefaultTo<0>;
+    start_at: Attribute.DateTime & Attribute.Required;
+    end_at: Attribute.DateTime;
+    primary_image: Attribute.Media<'images'> & Attribute.Required;
+    secondary_image: Attribute.Media<'images'>;
+    language: Attribute.Enumeration<['en', 'fr']> &
+      Attribute.Required &
+      Attribute.DefaultTo<'en'>;
+    main_action: Attribute.Component<'button.link-button'>;
+    channels: Attribute.Relation<
+      'api::announcement.announcement',
+      'manyToMany',
+      'api::channel.channel'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::announcement.announcement',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::announcement.announcement',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiChannelChannel extends Schema.CollectionType {
+  collectionName: 'channels';
+  info: {
+    singularName: 'channel';
+    pluralName: 'channels';
+    displayName: 'Channel';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required & Attribute.Unique;
+    announcements: Attribute.Relation<
+      'api::channel.channel',
+      'manyToMany',
+      'api::announcement.announcement'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::channel.channel',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::channel.channel',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -848,7 +887,6 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::announcement.announcement': ApiAnnouncementAnnouncement;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -857,6 +895,8 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::announcement.announcement': ApiAnnouncementAnnouncement;
+      'api::channel.channel': ApiChannelChannel;
     }
   }
 }

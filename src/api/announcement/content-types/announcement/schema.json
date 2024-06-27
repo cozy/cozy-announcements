@@ -36,9 +36,6 @@
       "type": "datetime",
       "required": false
     },
-    "channel": {
-      "type": "string"
-    },
     "primary_image": {
       "type": "media",
       "multiple": false,
@@ -68,6 +65,12 @@
       "type": "component",
       "repeatable": false,
       "component": "button.link-button"
+    },
+    "channels": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::channel.channel",
+      "inversedBy": "announcements"
     }
   }
 }

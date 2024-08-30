@@ -825,6 +825,19 @@ export interface ApiAnnouncementAnnouncement extends Schema.CollectionType {
       'manyToMany',
       'api::channel.channel'
     >;
+    uuid: Attribute.UID<
+      undefined,
+      undefined,
+      {
+        'disable-regenerate': true;
+      }
+    > &
+      Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'disable-regenerate': true;
+        }
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

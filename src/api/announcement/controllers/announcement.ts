@@ -15,7 +15,7 @@ export default factories.createCoreController('api::announcement.announcement', 
     const channels = (sanitizedQueryParams.channels ?? '').split(',');
 
     const announcements = await strapi.entityService.findMany('api::announcement.announcement', {
-      sort: { priority: 'desc', start_at: 'desc' },
+      sort: { priority: 'desc', start_at: 'asc' },
       filters: {
         start_at: {
           $lte: new Date()
@@ -31,9 +31,7 @@ export default factories.createCoreController('api::announcement.announcement', 
           }
         }
       },
-      populate: ['main_action', 'primary_image', 'secondary_image'],
-      start: 0,
-      limit: 5
+      populate: ['main_action', 'primary_image', 'secondary_image']
     });
 
     const sanitizedResults = await this.sanitizeOutput(announcements, ctx);

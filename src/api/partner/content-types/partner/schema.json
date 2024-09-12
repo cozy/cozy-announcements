@@ -19,16 +19,22 @@
     "description": {
       "type": "text"
     },
-    "channels": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::channel.channel",
-      "inversedBy": "partners"
-    },
     "users": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "admin::user"
+    },
+    "editor_channels": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::channel.channel",
+      "inversedBy": "editor_partners"
+    },
+    "viewer_channels": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::channel.channel",
+      "inversedBy": "viewer_partners"
     }
   }
 }

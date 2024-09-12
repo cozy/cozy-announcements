@@ -27,11 +27,17 @@
       "target": "api::announcement.announcement",
       "mappedBy": "channels"
     },
-    "partners": {
+    "viewer_partners": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::partner.partner",
-      "mappedBy": "channels"
+      "mappedBy": "viewer_channels"
+    },
+    "editor_partners": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::partner.partner",
+      "mappedBy": "editor_channels"
     }
   }
 }

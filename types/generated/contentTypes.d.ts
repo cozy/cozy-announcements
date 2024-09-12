@@ -874,7 +874,12 @@ export interface ApiChannelChannel extends Schema.CollectionType {
       'manyToMany',
       'api::announcement.announcement'
     >;
-    partners: Attribute.Relation<
+    viewer_partners: Attribute.Relation<
+      'api::channel.channel',
+      'manyToMany',
+      'api::partner.partner'
+    >;
+    editor_partners: Attribute.Relation<
       'api::channel.channel',
       'manyToMany',
       'api::partner.partner'
@@ -910,15 +915,20 @@ export interface ApiPartnerPartner extends Schema.CollectionType {
   attributes: {
     name: Attribute.String & Attribute.Required;
     description: Attribute.Text;
-    channels: Attribute.Relation<
-      'api::partner.partner',
-      'manyToMany',
-      'api::channel.channel'
-    >;
     users: Attribute.Relation<
       'api::partner.partner',
       'oneToMany',
       'admin::user'
+    >;
+    editor_channels: Attribute.Relation<
+      'api::partner.partner',
+      'manyToMany',
+      'api::channel.channel'
+    >;
+    viewer_channels: Attribute.Relation<
+      'api::partner.partner',
+      'manyToMany',
+      'api::channel.channel'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

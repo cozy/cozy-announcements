@@ -1,12 +1,12 @@
 
 const conditions = [
   {
-    displayName: 'Has partner access',
-    name: 'has-partner-access',
+    displayName: 'Has partner editor access on some channels',
+    name: 'has-partner-editor-access',
     plugin: 'admin',
     handler: async (user) => {
       const partners = await strapi.entityService.findMany('api::partner.partner', {
-        populate: ['channels'],
+        populate: ['editor_channels'],
         filters: {
           users: {
             id: user.id
@@ -18,7 +18,7 @@ const conditions = [
         return false;
       }
 
-      const authorizedChannel = partners[0].channels.map((channel) => channel.name)
+      const authorizedChannel = partners[0].editor_channels.map((channel) => channel.name)
 
       return {
         $or: [
@@ -30,6 +30,42 @@ const conditions = [
           {
             "name": {
               $in: [...authorizedChannel, null]
+            }
+          }
+        ]
+      };
+    },
+  },
+  {
+    displayName: 'Has partner viewer access on some channels',
+    name: 'has-partner-viewer-access',
+    plugin: 'admin',
+    handler: async (user) => {
+      const partners = await strapi.entityService.findMany('api::partner.partner', {
+        populate: ['viewer_channels'],
+        filters: {
+          users: {
+            id: user.id
+          }
+        }
+      });
+
+      if(partners.length === 0) {
+        return false;
+      }
+
+      const viewerChannel = partners[0].viewer_channels.map((channel) => channel.name)
+
+      return {
+        $or: [
+          {
+            "channels.name": {
+              $in: [...viewerChannel, null]
+            },
+          },
+          {
+            "name": {
+              $in: [...viewerChannel, null]
             }
           }
         ]

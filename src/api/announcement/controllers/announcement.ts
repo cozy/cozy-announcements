@@ -20,6 +20,9 @@ export default factories.createCoreController('api::announcement.announcement', 
         start_at: {
           $lte: new Date()
         },
+        publishedAt: {
+          $null: false
+        },
         $or: [{ end_at: { $null: true } }, { end_at: { $gte: new Date() } }],
         language: sanitizedQueryParams.lang,
         channels: {

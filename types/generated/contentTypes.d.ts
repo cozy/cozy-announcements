@@ -797,7 +797,7 @@ export interface ApiAnnouncementAnnouncement extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
   };
   attributes: {
     title: Attribute.String & Attribute.Required;
@@ -840,6 +840,7 @@ export interface ApiAnnouncementAnnouncement extends Schema.CollectionType {
       >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::announcement.announcement',
       'oneToOne',

@@ -34,7 +34,7 @@
     },
     "end_at": {
       "type": "datetime",
-      "required": false
+      "required": true
     },
     "primary_image": {
       "type": "media",

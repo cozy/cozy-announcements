@@ -17,10 +17,20 @@
       "required": true,
       "unique": true
     },
+    "description": {
+      "type": "text",
+      "required": false
+    },
     "announcements": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::announcement.announcement",
+      "mappedBy": "channels"
+    },
+    "partners": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::partner.partner",
       "mappedBy": "channels"
     }
   }

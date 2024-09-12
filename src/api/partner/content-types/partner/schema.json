@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "partners",
+  "info": {
+    "singularName": "partner",
+    "pluralName": "partners",
+    "displayName": "Partners",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "channels": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::channel.channel",
+      "inversedBy": "partners"
+    },
+    "users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "admin::user"
+    }
+  }
+}

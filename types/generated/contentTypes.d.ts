@@ -868,10 +868,16 @@ export interface ApiChannelChannel extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String & Attribute.Required & Attribute.Unique;
+    description: Attribute.Text;
     announcements: Attribute.Relation<
       'api::channel.channel',
       'manyToMany',
       'api::announcement.announcement'
+    >;
+    partners: Attribute.Relation<
+      'api::channel.channel',
+      'manyToMany',
+      'api::partner.partner'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -883,6 +889,47 @@ export interface ApiChannelChannel extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::channel.channel',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPartnerPartner extends Schema.CollectionType {
+  collectionName: 'partners';
+  info: {
+    singularName: 'partner';
+    pluralName: 'partners';
+    displayName: 'Partners';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    description: Attribute.Text;
+    channels: Attribute.Relation<
+      'api::partner.partner',
+      'manyToMany',
+      'api::channel.channel'
+    >;
+    users: Attribute.Relation<
+      'api::partner.partner',
+      'oneToMany',
+      'admin::user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::partner.partner',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::partner.partner',
       'oneToOne',
       'admin::user'
     > &
@@ -910,6 +957,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::announcement.announcement': ApiAnnouncementAnnouncement;
       'api::channel.channel': ApiChannelChannel;
+      'api::partner.partner': ApiPartnerPartner;
     }
   }
 }

@@ -813,7 +813,7 @@ export interface ApiAnnouncementAnnouncement extends Schema.CollectionType {
       > &
       Attribute.DefaultTo<0>;
     start_at: Attribute.DateTime & Attribute.Required;
-    end_at: Attribute.DateTime;
+    end_at: Attribute.DateTime & Attribute.Required;
     primary_image: Attribute.Media<'images'> & Attribute.Required;
     secondary_image: Attribute.Media<'images'>;
     language: Attribute.Enumeration<['en', 'fr']> &
